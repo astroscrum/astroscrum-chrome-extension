@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html ng-app='astroscrum'>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <title>Astroscrum</title>
+
+    <link rel='stylesheet' type='text/css' href='bower_components/semantic-ui/dist/semantic.min.css' />
+    <link rel='stylesheet' type='text/css' href='stylesheets/main.css' />
+
+    <script type='text/javascript' src='bower_components/jquery/dist/jquery.min.js'></script>
+    <script type='text/javascript' src='bower_components/semantic-ui/dist/semantic.min.js'></script>
+  </head>
+  <body>
+    <script type='text/javascript' src='bower_components/angular/angular.min.js'></script>
+    <script type='text/javascript' src="bower_components/angular-resource/angular-resource.js"></script>
+
+    <script type='text/javascript' src='app.js'></script>
+    <script type='text/javascript' src='players.js'></script>
+    <script type='text/javascript' src='scrum.js'></script>
+    <script type='text/javascript' src='team.js'></script>
+
+    <div class="ui main container" ng-controller='scrumController as scrum'>
+      <div class="ui link card" ng-repeat='player in scrum.players.filed'>
+        <div class="content" >
+          <div class="header">
+            {{ player.real_name }}
+            <span class="right floated">
+              <span class="ui yellow label"><i class="lightning icon"></i> Streak</span>
+            </span>
+          </div>
+          <div class="meta">
+            <span class="category">{{ player.points }} points</span>
+          </div>
+        </div>
+        <div class="content">
+          <p ng-repeat='category in player.categories'>
+            <b>{{ category.category }}:</b>
+            <span ng-repeat='entry in category.entries'>{{entry.body}};</span>
+          </p>
+        </div>
+        <div class="extra content">
+          <span class="right floated">{{ player.created_at | date:'shortTime'}}</span>
+          <span class='green'><i class="plus icon"></i>{{ player.points_today }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div ng-controller='teamController as team' class="ui inverted blue bottom fixed large menu">
+      <div class="header item">
+        {{ team.name }}
+      </div>
+      <div class="item">
+        {{ team.points }} points
+      </div>
+      <div class="right menu">
+        <div class="item">
+          <div class="ui basic inverted primary button"><i class="slack icon"></i>Sign in with Slack</div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
